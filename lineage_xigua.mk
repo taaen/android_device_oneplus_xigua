@@ -29,3 +29,28 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     DeviceProduct=PJA110 \
     SystemDevice=OP5943L1 \
     SystemName=PJA110
+    
+# 选择是否将当前时、分、秒添加到版本号中
+AVIUM_VERSION_APPEND_TIME_OF_DAY ?= true
+# 构建者名称
+AVIUM_MAINTAINER ?= Qingxiu&LZT
+
+# Soc型号
+AVIUM_SETTINGS_SOC_MODEL_NAME ?= Snapdragon 8 Gen 2
+# 设备代号
+AVIUM_SETTINGS_DEVICE_CODENAME ?= xigua
+
+# 选择是否开启gms
+WITH_GMS ?= true
+# LatinIMEGooglePrebuilt (Gboard)
+# 作为备用输入法，防止 LatinIME 首次启动崩溃导致卡死
+TARGET_INCLUDE_GOOGLEIME ?= true
+TARGET_GOOGLEIME_OVERRIDE_IME ?= false
+
+# 将此配置指定为true来开启欺骗 Prop，
+# 用于隐藏 bootloader 解锁状态
+AVIUM_FORCE_SET_FAKE_PROP ?= true
+
+# 通常在 Android 16 QPR2 上，模糊已经默认启用
+# 将 TARGET_FORCE_ENABLE_BLUR 指定为true来强制开启模糊
+TARGET_FORCE_ENABLE_BLUR ?= false

@@ -22,6 +22,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/display/displayconfig.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_4630947194812807555.xml
 
 $(call soong_config_set,qtidisplay,pxlw_vendor_namespace,vendor/oneplus/xigua)
+# Hardware iris7 path: color_manager.cpp now skips SetupSoftIrisLibrary
+# when SUPPORTS_PXLW_IRIS7 is defined, preventing the previous HWC/SDM conflict.
 $(call soong_config_set_bool,qtidisplay,pxlw_hw_iris7,true)
 
 PRODUCT_SYSTEM_PROPERTIES += \
@@ -31,7 +33,7 @@ PRODUCT_SYSTEM_PROPERTIES += \
 TARGET_HAS_UDFPS := true
 
 # IR
-$(call inherit-product, vendor/oneplus/ir/config.mk)
+#$(call inherit-product, vendor/oneplus/ir/config.mk)
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.consumerir.xml:$(TARGET_COPY_OUT_ODM)/etc/permissions/android.hardware.consumerir.xml
@@ -87,3 +89,7 @@ $(call inherit-product, device/oneplus/sm8550-common/common.mk)
 
 # Inherit from the proprietary files makefile.
 $(call inherit-product, vendor/oneplus/xigua/xigua-vendor.mk)
+#PRODUCT_PACKAGES += GoogleCamera (Pixel版需要GMS，不可用)
+# Gboard removal - use TARGET_INCLUDE_GOOGLEIME=false instead
+# PRODUCT_PACKAGES := $(filter-out ...)
+PRODUCT_PACKAGES := $(filter-out LatinIME,$(PRODUCT_PACKAGES))
