@@ -22,9 +22,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/display/displayconfig.xml:$(TARGET_COPY_OUT_VENDOR)/etc/displayconfig/display_id_4630947194812807555.xml
 
 $(call soong_config_set,qtidisplay,pxlw_vendor_namespace,vendor/oneplus/xigua)
-# Hardware iris7 path: color_manager.cpp now skips SetupSoftIrisLibrary
-# when SUPPORTS_PXLW_IRIS7 is defined, preventing the previous HWC/SDM conflict.
-$(call soong_config_set_bool,qtidisplay,pxlw_hw_iris7,true)
+# xigua: iris7 — kernel CONFIG_PXLW_IRIS=n + DSI1 disabled, but HAL must keep
+# pxlw_vendor_namespace set because libpwirisfeature's static constructors are
+# required for SDM core init. pxlw_hw_iris7=false keeps SUPPORTS_PXLW_IRIS7 off.
+$(call soong_config_set_bool,qtidisplay,pxlw_hw_iris7,false)
 
 PRODUCT_SYSTEM_PROPERTIES += \
     sys.brightness.disable_gamma_conversion=true
