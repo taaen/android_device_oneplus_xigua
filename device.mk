@@ -25,6 +25,9 @@ $(call soong_config_set,qtidisplay,pxlw_vendor_namespace,vendor/oneplus/xigua)
 # xigua: iris7 — kernel CONFIG_PXLW_IRIS=n + DSI1 disabled, but HAL must keep
 # pxlw_vendor_namespace set because libpwirisfeature's static constructors are
 # required for SDM core init. pxlw_hw_iris7=false keeps SUPPORTS_PXLW_IRIS7 off.
+# 2026-08-13 note: pxlw_hw_iris7=false was briefly suspected of causing boot
+# black screen on full flash, but root cause was a stale data partition
+# (formatting data fixed boot). Keeping false (iris7-disabled HAL) is correct.
 $(call soong_config_set_bool,qtidisplay,pxlw_hw_iris7,false)
 
 PRODUCT_SYSTEM_PROPERTIES += \
