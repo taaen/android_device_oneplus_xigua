@@ -25,9 +25,15 @@ $(call soong_config_set,qtidisplay,pxlw_vendor_namespace,vendor/oneplus/xigua)
 # xigua: iris7 — kernel CONFIG_PXLW_IRIS=n + DSI1 disabled, but HAL must keep
 # pxlw_vendor_namespace set because libpwirisfeature's static constructors are
 # required for SDM core init. pxlw_hw_iris7=false keeps SUPPORTS_PXLW_IRIS7 off.
-# 2026-08-13 note: pxlw_hw_iris7=false was briefly suspected of causing boot
-# black screen on full flash, but root cause was a stale data partition
-# (formatting data fixed boot). Keeping false (iris7-disabled HAL) is correct.
+# 2026-08-14 notes:
+# - pxlw_hw_iris7=true under iris7-disabled kernel caused boot white-flash +
+#   WeChat image-open white-flash crash. Reverted to false (stable).
+# - WeChat images appear yellow-tinted, but ONLY in WeChat (other apps normal),
+#   and this is independent of pxlw_hw_iris7 (false also shows it; whether the
+#   pre-experiment vendor was truly unaffected is unconfirmed). Root cause not
+#   isolated [需要人工补充]. Deferred (user decision 2026-08-14).
+# - WeChat image-open white-flash/crash traced to a third-party display
+#   optimization module, not to these ROM changes.
 $(call soong_config_set_bool,qtidisplay,pxlw_hw_iris7,false)
 
 PRODUCT_SYSTEM_PROPERTIES += \
