@@ -8,7 +8,8 @@
 # observed to keep a 3-line prop.default (missing vendor.display.* config),
 # causing recovery black screen. Check at make-parse time and remove the
 # incomplete file so ninja rebuilds it from the 5 build.prop files.
-$(shell) bash $(LOCAL_PATH)/check_recovery_prop.sh
+# The $(shell date) changes the command string so kati does not cache it.
+$(eval _xigua_prop_check := $(shell bash $(LOCAL_PATH)/check_recovery_prop.sh; date > /dev/null))
 
 # AAPT
 PRODUCT_AAPT_CONFIG := normal
