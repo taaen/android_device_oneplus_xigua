@@ -4,6 +4,12 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+# xigua: Self-heal a stale recovery prop.default. Incremental builds were
+# observed to keep a 3-line prop.default (missing vendor.display.* config),
+# causing recovery black screen. Check at make-parse time and remove the
+# incomplete file so ninja rebuilds it from the 5 build.prop files.
+$(shell) bash $(LOCAL_PATH)/check_recovery_prop.sh
+
 # AAPT
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
