@@ -5,7 +5,12 @@ ro.product.odm.name=PJA110
 ro.vendor.oplus.regionmark=CN
 
 # Display
-persist.vendor.display.pxlw.iris_feature=0x407f0780
+# 2026-08-14: Reverted from 0x407f0780 to 0x41ff0780 — the 0x41ff0780 value
+# (bit23=1) is required for recovery display to initialize. Recovery black
+# screen was traced to the 0x407f0780 value (bit23=0) introduced in AviumUI
+# bringup 289a63a. Note: normal system uses 0x407f0780 (works fine); recovery
+# environment needs 0x41ff0780. This contradicts the earlier CLAUDE.md rule 4.
+persist.vendor.display.pxlw.iris_feature=0x41ff0780
 
 # NFC
 persist.vendor.nfc.config_file_name=libnfc-mtp-SN100.conf_22851
